@@ -1,0 +1,34 @@
+:root{
+    --bg-color: #f8fafc;
+    --text-color: #0f172A;
+    --primary-color: #2563EB;
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+.header{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+.header__h1-container{
+    align-self: center;
+}
+.header__options-container{
+    display: flex;
+}
+.header__options-container li::marker{
+    content: none;
+}
+.header__options__svg{
+    height: 100%;
+    fill: var(--text-color);
+}
