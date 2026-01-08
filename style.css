@@ -1,7 +1,12 @@
 :root{
     --bg-color: #f8fafc;
+    --bg-color-hover: color-mix(in srgb, var(--bg-color-secundary) 100%, #000 5%);
+    --bg-color-secundary: #fff;
     --text-color: #0f172A;
-    --primary-color: #2563EB;
+    --text-color-hover: color-mix(in srgb, var(--text-color) 100%, #000 20%);
+    --primary-color: #3b82f6;
+    --primary-color-hover: color-mix(in srgb, var(--primary-color) 100%, #000 20%);
+    --font-family: sans-serif;
 }
 *{
     margin: 0;
@@ -11,23 +16,155 @@
 body{
     background-color: var(--bg-color);
     color: var(--text-color);
+    font-family: var(--font-family);
 }
+
+
 .header{
     width: 100%;
-    height: 50px;
+    height: 70px;
     display: flex;
     justify-content: space-between;
-    padding: 0 20px;
+    padding: 12px 20px;
+    background-color: var(--bg-color-secundary);
+    box-shadow: 0 -30px 80px 0 var(--primary-color);
 }
 .header__h1-container{
     align-self: center;
 }
+
+
 .header__options-container{
     display: flex;
+    gap: 10px;
+}
+.header__options-container li{
+    height: 100%;
+    padding: 3px 7px;
+    cursor: pointer;
+    border-radius: 7px;
+}
+.header__options-container li:hover{
+    background-color: var(--bg-color-hover);
+}
+.header__options-container li:hover > .header__options__svg{
+    background-color: var(--bg-color-hover);
+    fill: var(--text-color-hover);
 }
 .header__options-container li::marker{
     content: none;
 }
+
+
+.header__options-container li.header__options__theme{
+    padding: 0;
+    background-color: var(--color-option);
+    display: flex;
+    position: relative;
+    z-index: 0;
+    box-shadow: 0 0 8px 0 #2222;
+}
+.header__options-container li.header__options__theme:hover{
+    background-color: var(--primary-color);
+}
+
+
+#header__options__theme__input{
+    display: none;
+}
+.header__options__theme__label{
+    background-color: var(--color-option);
+    border-radius: 7px;
+    padding: 5px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+.header__options__theme__label.close::after{
+    content: '';
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    background-color: var(--primary-color);
+    border-radius: inherit;
+    position: absolute;
+    z-index: -1;
+    animation-name: hide-options-theme;
+    animation-duration: 100ms;
+    animation-fill-mode: both;
+}
+.header__options__theme__label.open::after{
+    content: '';
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    background-color: var(--primary-color);
+    border-radius: inherit;
+    position: absolute;
+    z-index: -1;
+    animation-name: show-options-theme;
+    animation-duration: 50ms;
+    animation-fill-mode: both;
+}
+@keyframes show-options-theme {
+    to{
+        top: 12px;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+}
+@keyframes hide-options-theme {
+    from{
+        top: 12px;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+    to{
+        top: 0;
+        border: inherit;
+    }
+}
+.header__options__theme__label:hover{
+    background-color: color-mix(in srgb, var(--color-option) 100%, #000 7%);
+}
+.header__options__theme__label.open:hover::after{
+    background-color: color-mix(in srgb, var(--color-option) 100%, #000 7%);
+}
+.header__options__theme__label__color{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    left: 0px;
+    top: 12px;
+    z-index: calc(var(--position) * -2);
+    display: none;
+    box-shadow: 0 0 8px 0 #2222;
+    background-color: var(--color-option);
+    animation-duration: .3s;
+    animation-fill-mode: forwards;
+}
+@keyframes show-color-options {
+    to{
+        top: calc(12px + var(--position)*100%);
+    }
+}
+@keyframes hide-color-options {
+    from{
+        top: calc(12px + var(--position)*100%);
+    }
+    to{
+        display: none;
+        top: 12px;
+    }
+}
+.header__options__theme__label__color:hover{
+    background-color: color-mix(in srgb, var(--color-option) 100%, #000 7%);
+}
+
 .header__options__svg{
     height: 100%;
     fill: var(--text-color);

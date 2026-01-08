@@ -7,13 +7,21 @@
     <title>Reloj</title>
 </head>
 <body>
+
+    <!------------------- HEADER ------------------>
     <header class="header">
         <div class="header__h1-container">
             <h1>RELOJ DIGITAL</h1>
         </div>
         <ul class="header__options-container">
             <li class="header__options__theme">
-
+                <input type="checkbox" id="header__options__theme__input">
+                <label for="header__options__theme__input" class="header__options__theme__label" style="--color-option: #3b82f6;">
+                    <p>color-theme</p>
+                </label>
+                <div class="header__options__theme__label__color color--1" style="--color-option: red; --position: 1;"></div>
+                <div class="header__options__theme__label__color color--2" style="--color-option: #4ade80; --position: 2;"></div>
+                <div class="header__options__theme__label__color color--3" style="--color-option: yellow; --position: 3;"></div>
             </li>
             <li class="header__options__theme-mode">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" class="header__options__svg">
@@ -29,5 +37,8 @@
             </li>
         </ul>
     </header>
+    <!------------------- HEADER END ------------------>
+
+    <script src="app.js"></script>
 </body>
 </html>
