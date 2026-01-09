@@ -1,24 +1,41 @@
 // ----------------------- HEADER ----------------------
+
+// ----------------------- THEME -----------------------
 const COLOR_THEME = document.querySelector(".header__options__theme");
 const COLOR_THEME_BUTTON = document.querySelector(".header__options__theme__label");
 const COLOR_OPTIONS = document.querySelectorAll(".header__options__theme__label__color");
 
+if(localStorage.getItem('theme')){
+    let elementColorStorage = localStorage.getItem('theme');
+    let elementColor = document.getElementsByClassName(elementColorStorage)[0];
+    let elementColorColor = getComputedStyle(elementColor).getPropertyValue('--color-option');
+
+    elementColor.classList.add('color-selected');
+
+    document.documentElement.style.setProperty('--primary-color',elementColorColor);
+}else{
+    let defaultColor = getComputedStyle(COLOR_OPTIONS[0]).getPropertyValue('--color-option');
+
+    COLOR_OPTIONS[0].classList.add('color-selected');
+    document.documentElement.style.setProperty('--primary-color',defaultColor);
+}
 
 const COLOR_SELECTIONED = (event)=>{
     if(!event.target.matches('.header__options__theme__label__color'))return
 
     TOGGLE_COLOR_OPTIONS();
 
-    let oldColor = getComputedStyle(COLOR_THEME_BUTTON).getPropertyValue('--color-option');;
+    let oldColor = document.querySelector('.color-selected');
+    oldColor.classList.remove('color-selected');
+    
     let newColor = getComputedStyle(event.target).getPropertyValue('--color-option');
-
-    COLOR_THEME_BUTTON.style.setProperty('--color-option',newColor)
-    event.target.style.setProperty('--color-option',oldColor)
-
-    document.documentElement.style.setProperty('--primary-color',newColor)
+    
+    document.documentElement.style.setProperty('--primary-color',newColor);
+    
+    localStorage.setItem('theme',event.target.className);
+    
+    event.target.classList.add('color-selected');
 }
-
-document.createElement('p').style.getPropertyValue
 
 const RECURSIVE_TOGGLE_COLOR_OPTIONS = ()=>{
     let locked = false;
@@ -67,11 +84,37 @@ const TOGGLE_COLOR_OPTIONS = RECURSIVE_TOGGLE_COLOR_OPTIONS();
 COLOR_THEME_BUTTON.addEventListener('click',TOGGLE_COLOR_OPTIONS);
 COLOR_THEME.addEventListener('click',COLOR_SELECTIONED);
 
-const funcion = ()=>{
-    let contador = 0
-    console.log('funcion')
-    return ()=>{
-        contador++
-        console.log(contador)
+
+
+// ----------------------- DARK-LIGHT -----------------------
+const DARK_LIGHT_BUTTON = document.querySelector(".header__options__theme-mode");
+
+const TOGGLE_DARK_LIGHT = ()=>{
+    const ROOT = document.documentElement;
+    let darkMode = ROOT.classList.contains('dark');
+    let scheme = darkMode ? ['dark','light'] : ['light','dark'];
+
+    localStorage.setItem('scheme',scheme[1]);
+
+    if(!document.startViewTransition){
+        document.documentElement.classList.replace(scheme[0],scheme[1]);
+        return;
     }
+    document.startViewTransition(()=>{
+        document.documentElement.classList.replace(scheme[0],scheme[1]);
+    })
 }
+
+const colorScheme = localStorage.getItem('scheme')
+
+if(colorScheme){
+    document.documentElement.classList.add(colorScheme)
+}else{
+    const COLOR_SCHEME = window.matchMedia('(prefers-color-scheme: dark)');
+    
+    document.documentElement.classList.add(COLOR_SCHEME.matches ? 'dark' : 'light');
+    
+    COLOR_SCHEME.addEventListener('change',TOGGLE_DARK_LIGHT);
+}
+
+DARK_LIGHT_BUTTON.addEventListener('click',TOGGLE_DARK_LIGHT);
