@@ -1,6 +1,7 @@
 // ----------------------- HEADER ----------------------
 
 // ----------------------- THEME -----------------------
+
 const COLOR_THEME = document.querySelector(".header__options__theme");
 const COLOR_THEME_BUTTON = document.querySelector(".header__options__theme__label");
 const COLOR_OPTIONS = document.querySelectorAll(".header__options__theme__label__color");
@@ -84,9 +85,14 @@ const TOGGLE_COLOR_OPTIONS = RECURSIVE_TOGGLE_COLOR_OPTIONS();
 COLOR_THEME_BUTTON.addEventListener('click',TOGGLE_COLOR_OPTIONS);
 COLOR_THEME.addEventListener('click',COLOR_SELECTIONED);
 
+// ----------------------- THEME END -----------------------
+
+
+
 
 
 // ----------------------- DARK-LIGHT -----------------------
+
 const DARK_LIGHT_BUTTON = document.querySelector(".header__options__theme-mode");
 
 const TOGGLE_DARK_LIGHT = ()=>{
@@ -118,3 +124,40 @@ if(colorScheme){
 }
 
 DARK_LIGHT_BUTTON.addEventListener('click',TOGGLE_DARK_LIGHT);
+
+// ----------------------- DARK LIGHT END -----------------------
+
+
+
+
+
+// ----------------------- MAIN -----------------------
+
+const HOUR_CONTAINER = document.querySelector('.main__time');
+const DATE_CONTAINER = document.querySelector('.main__date');
+const HOUR_AM_PM = document.querySelector('.main__date__am-pm');
+
+let hour12;
+
+const HOUR_FORMAT = new Intl.DateTimeFormat('es-ES',{
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12
+}) 
+const DATE_FORMAT = new Intl.DateTimeFormat('es-ES',{
+    weekday: 'long',
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric'
+})
+
+
+const UPDATE_DATE = ()=>{
+    const DATE = new Date();
+    HOUR_CONTAINER.textContent = HOUR_FORMAT.format(DATE).slice(0,11) + HOUR_FORMAT.format(DATE).slice(12);
+    DATE_CONTAINER.textContent = DATE_FORMAT.format(DATE);
+    console.log(HOUR_FORMAT.format(DATE))
+}
+
+setInterval(UPDATE_DATE,1000);

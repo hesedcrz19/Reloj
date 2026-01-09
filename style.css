@@ -2,6 +2,7 @@
     --primary-color: ;
     --primary-color-hover: color-mix(in srgb, var(--primary-color) 100%, #000 10%);
     --font-family: sans-serif;
+    --font-monospace: monospace;
 }
 :root.light{
     --bg-color: #f8fafc;
@@ -45,6 +46,11 @@ body{
     height: 100dvh;
 }
 
+
+
+
+
+/* ----------------- HEADER ---------------------*/
 
 .header{
     width: 100%;
@@ -188,4 +194,35 @@ body{
 .header__options__svg{
     height: 100%;
     fill: var(--text-color);
+}
+
+/* ----------------- HEADER END---------------------*/
+
+
+
+
+
+/* ----------------- MAIN ---------------------*/
+
+.main{
+    --time-font-size: 2.5rem;
+    --date-font-size: 1.5rem;
+    font-family: var(--font-monospace);
+    color: var(--primary-color);
+    font-weight: 900;
+    width: 100%;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+}
+.main__time{
+    font-size: var(--time-font-size);
+}
+.main__date{
+    font-size: var(--date-font-size);
 }
